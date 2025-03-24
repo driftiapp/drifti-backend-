@@ -51,12 +51,19 @@ app.get('/health', (_req, res) => {
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/drifti';
 
 mongoose.connect(MONGODB_URI)
-  .then(() => {
-    logger.info('Connected to MongoDB');
-  })
-  .catch((error) => {
-    logger.error('MongoDB connection error:', error);
-  });
+.then(() => {
+  logger.info('Connected to MongoDB');
+})
+.catch((error) => {
+  logger.error('MongoDB connection error:', error);
+  process.exit(1); // Exit if cannot connect to database
+});
+
+// Error handling middleware
+app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  logger.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong!' });
+});
 
 // Start server
 const PORT = process.env.PORT || 3001;
