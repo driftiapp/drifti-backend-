@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 export interface IUser extends Document {
@@ -8,47 +8,48 @@ export interface IUser extends Document {
   lastName: string;
   role: 'user' | 'admin';
   isActive: boolean;
-  lastLogin?: Date;
+  lastLogin: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
-const userSchema = new Schema<IUser>({
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
     unique: true,
     trim: true,
-    lowercase: true,
+    lowercase: true
   },
   password: {
     type: String,
     required: true,
-    minlength: 6,
+    minlength: 6
   },
   firstName: {
     type: String,
     required: true,
-    trim: true,
+    trim: true
   },
   lastName: {
     type: String,
     required: true,
-    trim: true,
+    trim: true
   },
   role: {
     type: String,
     enum: ['user', 'admin'],
-    default: 'user',
+    default: 'user'
   },
   isActive: {
     type: Boolean,
-    default: true,
+    default: true
   },
   lastLogin: {
     type: Date,
-  },
+    default: Date.now
+  }
 }, {
-  timestamps: true,
+  timestamps: true
 });
 
 // Hash password before saving

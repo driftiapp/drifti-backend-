@@ -8,18 +8,16 @@ services:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 10000
+        value: 3001
       - key: MONGODB_URI
-        value: mongodb+srv://drifti_admin:RFmubALmhA5VVL8Z@drifti.a8nbe.mongodb.net/drifti?retryWrites=true&w=majority&appName=drifti
+        sync: false
       - key: JWT_SECRET
-        value: 388f5d8392eef888fe9584009d4d2c33d3c95b67a79f08da490489ccca69675fda914737ac465879cff9849ee5a54b2bdb6749d31c449393ad5eaa79fdb9807d
-      - key: JWT_EXPIRES_IN
-        value: 7d
+        sync: false
       - key: FRONTEND_URL
-        value: https://drifti-frontend.onrender.com
+        value: https://drifti.onrender.com
       - key: RATE_LIMIT_WINDOW_MS
         value: 900000
-      - key: RATE_LIMIT_MAX_REQUESTS
+      - key: RATE_LIMIT_MAX
         value: 100
       - key: LOG_LEVEL
         value: info 
